@@ -238,3 +238,8 @@
 .admin-panel .text-danger {
     color: #ff6b6b !important;
 }
+
+/* Prueba de fuego: Si esto no cambia el color, el CSS no se está leyendo */
+.sidebar {
+    background-color: #0d3481 !important; /* Azul Super Casas forzado */
+}

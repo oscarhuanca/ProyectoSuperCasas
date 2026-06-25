@@ -28,7 +28,7 @@
         /* Nueva Barra Superior */
         .top-bar { background: var(--azul-sc); color: white; padding: 15px 25px; }
 
-        .nav-link { color: #adb5bd !important; }
+        .nav-link { color: #adb5bd !important; cursor: pointer; }
         .nav-link:hover, .nav-link.active { 
             color: #fff !important; 
             background: var(--verde-sc) !important; 
@@ -44,20 +44,32 @@
         <!-- Sidebar único y corregido -->
         <nav class="sidebar p-3">
             <div class="logo-area text-center py-3">
-                <img src="assets/img/logo.png" alt="Logo" style="width: 80%;">
+                <img src="../../assets/img/logo.jpeg" alt="Logo" style="width: 80%;">
+
             </div>
             <h4 class="text-white text-center">Admin SAPN</h4>
             <hr class="text-white">
             <ul class="nav flex-column">
                 
-                <li class="nav-item"><a class="nav-link" href="/Super Casas/views/admin/Gusuarios.php">Gestión de Usuarios</a></li>
-                <li class="nav-item"><a class="nav-link" href="/Super Casas/views/admin/Gtalentohumano.php">Gestión de Talento Humano</a></li>
-                <li class="nav-item"><a class="nav-link" href="/Super Casas/views/admin/Gcomercial.php">Gestión Comercial</a></li>
-                <li class="nav-item"><a class="nav-link" href="/Super Casas/views/admin/Reportes.php">Reportes</a></li>
-                <li class="nav-item"><a class="nav-link" href="/Super Casas/views/admin/Csistema.php">Configuración del Sistema</a></li>
-            </ul>
+               <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" onclick="cargarModulo('Gusuarios')">Gestión de Usuarios</a>
+</li>
+ <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" onclick="cargarModulo('Gtalentohumano')">Gestión de Talento Humano</a>
+</li>
+ <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" onclick="cargarModulo('Gcomercial')">Gestión Comercial</a>
+</li>
+ <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" onclick="cargarModulo('Reportes')">Reportes</a>
+</li>
+ <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" onclick="cargarModulo('Csistema')">Configuración del Sistema</a>
+</li>
+
             <div class="mt-auto p-3">
-                <a href="logout.php" class="nav-link text-danger">Cerrar Sesión</a>
+               <a href="../../logout.php" class="nav-link text-danger">Cerrar Sesión</a>
+
             </div>
         </nav>
 
@@ -66,7 +78,7 @@
             <header class="top-bar">
                 <h2>Panel de Administración</h2>
             </header>
-            <main class="main-panel">
+            <main id="ajax-container" class="main-panel">
                 <?php if (isset($titulo)): ?>
                     <h1 class="mb-4"><?php echo $titulo; ?></h1>
                 <?php endif; ?>
@@ -75,15 +87,44 @@
         </div>
     </div>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/main.js"></script>
+
     <script>
-        // Tu script de detección de página activa se mantiene igual
-        document.addEventListener("DOMContentLoaded", function() {
-            const path = window.location.pathname;
-            const page = path.split("/").pop();
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === page) link.classList.add('active');
-            });
-        });
+        // Función para cargar los módulos vía AJAX
+      function cargarModulo(modulo) {
+    // Solo cargamos el contenido, sin recargar todo el layout
+    fetch('admin.php?modulo=' + modulo, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'text/html'
+        }
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Error ' + response.status);
+        return response.text();
+    })
+    .then(html => {
+        document.getElementById('ajax-container').innerHTML = html;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('No se pudo cargar el módulo');
+    });
+}
     </script>
+   <div class="modal fade" id="modalUsuario" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Gestión de Usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="modalContent"></div>
+    </div>
+  </div>
+</div> 
 </body>
 </html>

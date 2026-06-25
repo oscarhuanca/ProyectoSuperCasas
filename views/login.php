@@ -20,7 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificación simple (¡ojo! en producción usa password_verify)
     if ($user && $password == $user['contrasena']) {
         $_SESSION['usuario_id'] = $user['id_usuario']; // Creamos la sesión
-        header("Location: ../admin.php"); // Redirigimos al panel
+       header("Location: admin/admin.php");
+
         exit();
     } else {
         echo "Credenciales incorrectas.";

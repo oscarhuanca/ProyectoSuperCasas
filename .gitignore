@@ -1,0 +1,4 @@
+# Excluir configuraciones sensibles y carpetas pesadas
+config/
+vendor/
+.htaccess

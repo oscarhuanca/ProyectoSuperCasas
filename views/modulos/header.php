@@ -38,11 +38,10 @@
                 <i class="bi bi-bell fs-5"></i>
             </a>
 
-            <a href="/Super Casas/views/login.php" ... >
+            <a href="/Super Casas/views/login.php" class="text-white text-decoration-none fw-bold">
+   <i class="bi bi-person-circle fs-4 me-1"></i> SAPN Super Casas
+    </a>
 
-            <a href="javascript:void(0);" onclick="abrirModal()" class="text-white text-decoration-none fw-bold">
-            <i class="bi bi-person-circle fs-4 me-1"></i> SAPN Super Casas
-            </a>
         </div>
 
          <!-- Contenedor colapsable del menú -->
